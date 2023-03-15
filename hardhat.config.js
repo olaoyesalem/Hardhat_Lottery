@@ -15,13 +15,7 @@ const LOCAL_HOST_ACCOUNT= process.env.LOCAL_HOST_ACCOUNT
 const SEPOLIA_ACCOUNT = process.env.SEPOLIA_ACCOUNT
 const SEPOLIA_URL = process.env.SEPOLIA_URL
 module.exports = {
-<<<<<<< HEAD
   defaultNetwork:"hardhat",
-=======
-
-  
-  
->>>>>>> 338e2cb1c3e2f0b3a2a48ed1d93b6f3c3cee9a89
   solidity: {
    
     version: "0.8.7",
