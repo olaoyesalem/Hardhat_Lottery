@@ -7,8 +7,6 @@ require("@nomiclabs/hardhat-ethers");
 require("hardhat-deploy-ethers");
 require("@typechain/ethers-v5");
 const {config} = require("dotenv");
-
-
 config();
 
 /** @type import('hardhat/config').HardhatUserConfig */
