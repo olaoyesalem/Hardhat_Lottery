@@ -20,6 +20,7 @@
     "typechain": "^8.1.0"
   },
   "dependencies": {
+    "@chainlink/contracts": "^0.6.1",
     "@openzeppelin/contracts": "^4.8.0",
     "@openzeppelin/hardhat-upgrades": "^1.21.0",
     "@symfoni/hardhat-react": "^0.3.0",

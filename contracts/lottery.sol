@@ -20,7 +20,7 @@ import "@chainlink/contracts/src/v0.8/interfaces/KeeperCompatibleInterface.sol";
     *@notice This Contract is for creating untamperable decentralized smart contract
     *@dev This implements chainlinkVRF2 and chainLink Keepers
 */
-  abstract contract Lottery is VRFConsumerBaseV2,KeeperCompatibleInterface {
+   abstract contract lottery is VRFConsumerBaseV2,KeeperCompatibleInterface {
     // KeeperCompatibleInterface is to import checkUpKeep and perfromUpKeep
     // we are inheriting the getRandom number from a chainlink using VRFConsumerBaseV2
 
@@ -88,8 +88,6 @@ import "@chainlink/contracts/src/v0.8/interfaces/KeeperCompatibleInterface.sol";
        if(!upKeepNeeded){
            revert Lottery__upKeepNotNeeded(address(this).balance,s_players.length,uint256(s_raffleState));
        }
-
-
          s_raffleState = RaffleState.CALCULATING;
           uint256 requestId =i_vrfCoordinator.requestRandomWords(
             i_gasLane,
