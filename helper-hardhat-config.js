@@ -1,4 +1,4 @@
-// get the contract address from vrfCoordinatorv2
+
 
 const { ethers } = require("hardhat")
 
