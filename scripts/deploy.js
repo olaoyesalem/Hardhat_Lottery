@@ -1,4 +1,4 @@
-// I want to get the subscription Id as an even from the MockContra ct
+// I want to get the subscription Id as an even from theMockContra ct
 
 const { ethers } = require("hardhat");
 const { BASE_FEE, GAS_PRICE_LINK } = require("../helper-hardhat-config");
