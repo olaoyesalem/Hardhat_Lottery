@@ -19,8 +19,6 @@ const networkConfig={
 }
 
 
-
-
 const developmentChains =["hardhat", "localHost"]
 const BASE_FEE = ethers.utils.parseEther("0.25") // 0.25 Link, it costs 0.25 link for a request
 const GAS_PRICE_LINK = 1e9
