@@ -15,8 +15,6 @@ const contract = await contractFactory.deploy(BASE_FEE,GAS_PRICE_LINK)
  const contractAddress = contract.address
 console.log(contractAddress) 
   
-  
-
 const subscription_id = contract.events[0]
 console.log(subscription_id)
 
