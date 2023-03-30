@@ -9,7 +9,6 @@ require("@typechain/ethers-v5");
 const { config } = require("dotenv");
 config();
 
-
 /** @type import('hardhat/config').HardhatUserConfig */
 const LOCAL_HOST_URL = process.env.LOCAL_HOST_URL;
 const LOCAL_HOST_ACCOUNT = process.env.LOCAL_HOST_ACCOUNT;
