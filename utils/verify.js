@@ -1,6 +1,7 @@
 async function verify(contractAddress, args) {
     console.log('verifying....')
 
+    
     try {
         await run('verify:verify', {
             address: contractAddress,
