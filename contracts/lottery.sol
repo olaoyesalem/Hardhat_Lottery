@@ -5,6 +5,7 @@ import "@chainlink/contracts/src/v0.8/interfaces/VRFCoordinatorV2Interface.sol";
 import "@chainlink/contracts/src/v0.8/interfaces/KeeperCompatibleInterface.sol";
 
 
+
  error Lottery__notEnoughETHSent();
  error Lottery__unsuccessfulTxn();
  error Lottery__notOpen();
