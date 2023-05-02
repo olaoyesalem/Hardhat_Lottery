@@ -11,6 +11,7 @@ import "@chainlink/contracts/src/v0.8/interfaces/KeeperCompatibleInterface.sol";
  error Lottery__upKeepNotNeeded(uint256 currentBalance, uint256 no_of_players, uint256 Raffle_state);
 // Raffle Lottery 
 
+
 // Enter the lottery(pay some amount)
 // Pick a random winner(vefirably random)
 // Winner to be selected  every X minutes, completely automated
@@ -50,9 +51,9 @@ import "@chainlink/contracts/src/v0.8/interfaces/KeeperCompatibleInterface.sol";
 
  /* Lotttery Variable */
    address private s_recentWinners;
-    RaffleState private s_raffleState;
+   RaffleState private s_raffleState;
 
-// vrfCoordinatorv2 is the address that does the random number verifivation
+// vrfCoordinatorv2 is the address that does the random number verification
     constructor(address vrfCoordinatorv2,
     uint256 entranceFee, 
     bytes32 gasLane,
