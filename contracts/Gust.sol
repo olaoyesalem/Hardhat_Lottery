@@ -9,7 +9,7 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 
 
 /**
-    @title  GU$T Contract
+    @title  GUST
     @author olaoye Salem
     @notice This Contract deploys GU$T as Gipper Labs  Token used  and allow only the owner to call _mint function
     This contract also implements the EIP 2612 permit , already ERC20 permit, which grant permission to others to spend their tokens in a single transaction.
@@ -17,12 +17,14 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 */
 
 
-contract GustToken is ERC20Permit, Ownable {
+
+contract GUST is ERC20Permit, Ownable {
 
     bytes32 public constant PERMIT_TYPEHASH = keccak256("Permit(address owner,address spender,uint256 value,uint256 nonce,uint256 deadline)");
 
-    constructor() ERC20("GusT", "GU$T") ERC20Permit("GustToken") {
-       
+    constructor(uint256 _amount) ERC20("GUST", "GU$T") ERC20Permit("GUST") {
+        uint256 amount = _amount *decimals();
+       _mint(msg.sender, amount);
     }
 
     function mint(address to, uint256 _amount) public onlyOwner {
