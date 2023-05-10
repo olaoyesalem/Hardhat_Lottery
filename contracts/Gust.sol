@@ -18,12 +18,13 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 
 
 
+
 contract GUST is ERC20Permit, Ownable {
 
     bytes32 public constant PERMIT_TYPEHASH = keccak256("Permit(address owner,address spender,uint256 value,uint256 nonce,uint256 deadline)");
 
     constructor(uint256 _amount) ERC20("GUST", "GU$T") ERC20Permit("GUST") {
-        uint256 amount = _amount *decimals();
+        uint256 amount = _amount *10**decimals();
        _mint(msg.sender, amount);
     }
 

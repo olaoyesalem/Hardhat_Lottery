@@ -716,11 +716,11 @@
         "solcVersion": "0.8.7"
       },
       "contracts/GUST.sol:GUST": {
-        "src": "contracts\\GUST.sol:21",
+        "src": "contracts\\GUST.sol:22",
         "version": {
-          "withMetadata": "3295f72f0d4718c126aa7d58ff72417a17c216d019346a4098b473dfe124f82f",
-          "withoutMetadata": "a2b7e798801529cdb5136569a23b0c6d7c06f2e21fdb6e076d9ee961d9debd61",
-          "linkedWithoutMetadata": "a2b7e798801529cdb5136569a23b0c6d7c06f2e21fdb6e076d9ee961d9debd61"
+          "withMetadata": "04585014dcad2463bef534f87b9521bf64f2d999d7716ab6943822f440a96a8e",
+          "withoutMetadata": "178ab461f7759c914ec42d812f1bf868ae3deacf515e55f647a9997b107512a4",
+          "linkedWithoutMetadata": "178ab461f7759c914ec42d812f1bf868ae3deacf515e55f647a9997b107512a4"
         },
         "inherit": [
           "@openzeppelin/contracts/access/Ownable.sol:Ownable",
@@ -742,7 +742,7 @@
           {
             "kind": "constructor",
             "contract": "GUST",
-            "src": "contracts\\GUST.sol:25"
+            "src": "contracts\\GUST.sol:26"
           }
         ],
         "layout": {
