@@ -32,4 +32,9 @@ contract GUST is ERC20Permit, Ownable {
         uint256 amount = _amount * 10**decimals();   
         _mint(to, amount);
     }
+
+    function _transfer(address to,uint256 _amount)public{
+        uint256 amount = _amount * 10**decimals();   
+        transfer(to, amount);
+    }
 }
