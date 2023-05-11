@@ -13,8 +13,9 @@ const GUST =  new ethers.Contract(contractAddress,abi,signer);
 // wanna check fot the total supply
 
 async function main(){
-    const totalSupply = await GUST.totalSupply()
-    console.log(ethers.utils.formatEther(totalSupply))
+    const totalSupply = await GUST.transferOwnership("0x70997970C51812dc3A010C7d01b50e0d17dc79C8")
+    // console.log((ethers.utils.transferOwnership("0x70997970C51812dc3A010C7d01b50e0d17dc79C8")))
+    console.log("Done!")
 }
 
 
