@@ -1,4 +1,4 @@
-write about connecting to the local host
+<!-- write about connecting to the local host
 
 # Smart Contract REST API Documentation
 
@@ -70,7 +70,7 @@ Example Error Response
 {
   "error": "Error message"
 }
-
+ -->
 
 
 // ANother One
@@ -80,18 +80,29 @@ Sure! Here's an example of how you can document the API for a smart contract:
 # Smart Contract API Documentation
 
 ## Introduction
-This documentation provides an overview of the API for the Smart Contract, which allows users to interact with the contract's functions and access its data. The Smart Contract is deployed on the Ethereum blockchain.
+This documentation provides an overview of the API for the Smart Contract, which allows users to interact with the contract's functions and access its data. The Smart Contract is deployed on the hardahat Local blockchain and uses 
+port 4000 in the local host.
+
+To spit out the Hardhat Local Blockchain, USE
+```
+yarn hardhat node
+```
+
+To start running port 4000, USE
+
+```
+node API/api.js
+```
 
 ## Base URL
-The base URL for all API endpoints is: `https://api.example.com/smart-contract`
+The base URL for all API endpoints is: `http://localhost:4000/smart-contract/info`
 
-## Authentication
-Authentication is not required for this API.
 
-## Endpoints
-
-### `GET /smart-contract/info`
-Retrieve information about the Smart Contract.
+### Request
+This retrieves  Basic information about the GUST Contract.
+```
+`GET /smart-contract/info`
+```
 
 #### Response
 - `contractAddress` (string): The address of the deployed Smart Contract.
@@ -101,21 +112,471 @@ Retrieve information about the Smart Contract.
 - `totalSupply` (uint256): The total supply of the contract's token.
 - `tokenSymbol` (string): The symbol of the contract's token.
 
-#### Example
-Request:
+
+
+
+ * ### TOTAL SUPPLY
+This gives the total amount of GUST tokens that has been minted.
+## Endpoints
 ```
-GET /smart-contract/info
+http://localhost:4000/totalSupply/
+
+```
+### Request
+This retrieves  Basic information about the GUST Contract.
+
+```
+`GET /totalSupply/`
 ```
 
-Response:
+#### Response
+```
+1000.0
+```
+
+### *SYMBOL
+This gives the Symbol of GUST token.
+## Endpoints
+```
+http://localhost:4000/symbol/
+
+```
+### Request
+
+This gives the total amount of GUST tokens that has been minted.
+```
+`GET /symbol/`
+```
+
+#### Response
+```
+GU$T
+```
+
+* ###  OWNER
+
+## Endpoints
+```
+http://localhost:4000/owner/
+
+```
+### Request
+This gives the Owner i.e the one who deployed/ holds all of GUST tokens that has been minted.
+
+```
+`GET /owner/`
+```
+
+#### Response
+```
+0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266
+```
+
+* ### NAME
+
+## Endpoints
+```
+http://localhost:4000/name/
+
+```
+* ### Request
+This gives the Name  GUST tokens that has been minted.
+
+```
+`GET /owner/`
+```
+
+#### Response
+```
+GUST
+```
+
+* ### PERMIT_TYPEHASH
+
+## Endpoints
+```
+http://localhost:4000/PERMIT_TYPEHASH/
+
+```
+* ### Request
+This gives the PERMIT_TYPEHASH of  GUST token.
+
+```
+`GET /PERMIT_TYPEHASH/`
+```
+
+#### Response
+```
+0x6e71edae12b1b97f4d1f60370fef10105fa2faae0126114a169c64845d6126c9
+```
+
+
+* ### NONCES
+
+## Endpoints
+```
+http://localhost:4000/nonces/
+
+```
+* ### Request
+This gives the nonce of  any address , so has to avoid replay of txn.
+
+```
+`GET /nonces/`
+```
+
+#### Response
+Generally, starts from zero and increases by 1 with each number of txns.
+
+* ### DOMAIN_SEPARATOR
+
+## Endpoints
+```
+http://localhost:4000/DOMAIN_SEPARATOR/
+
+```
+* ### Request
+This returns the hash the DOMAIN_SEPARATOR of  GUST token.
+
+```
+`GET /DOMAIN_SEPARATOR/`
+```
+
+#### Response
+```
+It returns the hash of the domain separator e.g. 0x515b276498fe8273a64e11bb00b92510cd939f4bc438cda7f5d1f1b8da8fbe02
+```
+
+* ### DECIMALS
+
+## Endpoints
+```
+http://localhost:4000/decimals/
+
+```
+* ### Request
+Returns the number of decimals used to get its user representation. For example, The decimals used 
+in the contract equals 18, a balance of 1000000000000000000 tokens should be displayed to a user as 1 (1000000000000000000 / 10 ** 18).
+This is to imitate the relationship between ethers and wei.
+
+```
+`GET /decimals/`
+```
+
+#### Response
+
+```
+18
+```
+
+* ### BALANCE OF
+
+## Endpoints
+```
+http://localhost:4000/balanceOf/
+
+```
+* ### Request
+This returns the balance of GUST tokens an address have
+* ### Params
+
 ```json
 {
-  "contractAddress": "0x1234567890abcdef",
-  "contractName": "ExampleToken",
-  "contractVersion": "1.0.0",
-  "author": "John Doe",
-  "totalSupply": 1000000,
-  "tokenSymbol": "EXM"
+  "address": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+
 }
 ```
+
+```
+`GET /balanceOf/`
+```
+
+#### Response
+
+```
+1000
+```
+
+* ### ALLOWANCE
+
+## Endpoints
+```
+http://localhost:4000/allowance/
+
+```
+* ### Request
+This returns the balance of GUST tokens an address have
+* ### Params
+
+```json
+{
+  "ownerAddress": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+  "spenderAddress":"0x70997970C51812dc3A010C7d01b50e0d17dc79C8"
+
+}
+```
+
+```
+`POST /allowance/`
+```
+
+#### Response
+This request allows user to spend an amount of GUST token on thier behalf
+
+``` json
+{success:true}
+
+```
+#### Requirements
+spendrAddress cannot be the zero address.
+
+the ownerAddress must have a balance of at least amount.
+
+
+
+* ### TRANSFER OWNERSHIP
+
+## Endpoints
+```
+http://localhost:4000/transferOwnership/
+
+```
+* ### Request
+This allow a user (ownerAddress) to transfer ownerShip to another user.
+The new user then becomes the onwer of the GUST token.
+* ### Params
+
+```json
+{
+  "newOwner":"0x70997970C51812dc3A010C7d01b50e0d17dc79C8"
+
+}
+```
+
+```
+`POST /transferOwnership/`
+```
+
+#### Response
+This request allows user to spend an amount of GUST token on thier behalf
+``` json
+{success:true}
+
+```
+
+#### Requirements
+newOwner cannot be the zero address.
+
+
+
+
+
+* ### RENOUNCE OWNERSHIP
+
+## Endpoints
+```
+http://localhost:4000/renounceOwnership/
+
+```
+* ### Request
+This allow a user (ownerAddress) to transfer ownerShip to another user.
+The new user then becomes the onwer of the GUST token.
+* ### Params
+
+None
+
+```
+`POST /renounceOwnership/`
+```
+
+#### Response
+This request allows user to spend an amount of GUST token on thier behalf
+``` json
+{success:true}
+
+```
+#### Requirements
+newOwner cannot be the zero address.
+
+
+
+
+
+* ### TRANSFER 
+
+## Endpoints
+```
+http://localhost:4000/transfer/
+
+```
+* ### Request
+This allow a user (ownerAddress) to transfer amount of token to another user.
+* ### Params
+
+```json
+{
+  address:"0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+  amount:1
+}
+```
+
+```
+`POST /transfer/`
+```
+
+#### Response
+``` json
+{success:true}
+
+```
+
+#### Requirements
+address cannot be the zero address.
+amount must be in wwhole number
+the caller must have a balance of at least amount
+
+
+
+
+* ### APPROVE 
+
+## Endpoints
+```
+http://localhost:4000/approve/
+
+```
+* ### Request
+This allow a user (ownerAddress) another user spend GUST tokens on thier behalf.
+* ### Params
+
+```json
+{
+  address:"0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+  amount:1
+}
+```
+
+```
+`POST /approve/`
+```
+
+#### Response
+
+``` json
+{success:true}
+
+```
+#### Requirements
+spender cannot be the zero address.
+amount must be in whole number
+
+
+
+
+* ### INCREASE ALLOWANCE 
+
+## Endpoints
+```
+http://localhost:4000/increaseAllowance/
+
+```
+* ### Request
+Atomically increases the allowance granted to spender by the caller..
+* ### Params
+
+```json
+{
+  address:"0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+  amount:1
+}
+```
+
+```
+`POST /increaseAllowance/`
+```
+
+#### Response
+
+
+``` json
+{success:true}
+
+```
+#### Requirements
+spender cannot be the zero address.
+amount must be in whole number
+
+
+* ### DECREASE ALLOWANCE 
+
+## Endpoints
+```
+http://localhost:4000/decreaseAllowance/
+
+```
+* ### Request
+Atomically decreases the allowance granted to spender by the caller..
+* ### Params
+
+```json
+{
+  address:"0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+  amount:1
+}
+```
+
+```
+`POST /decreaseAllowance/`
+```
+
+#### Response
+
+
+``` json
+{success:true}
+
+```
+#### Requirements
+spender cannot be the zero address.
+amount must be in whole number
+
+
+* ### MINT
+
+## Endpoints
+```
+http://localhost:4000/mint/
+
+```
+* ### Request
+Mints GUST tokens. Can only be called by the ownerr of the contract.
+* ### Params
+
+```json
+{
+  address:"0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+  amount:1
+}
+```
+
+```
+`POST /mint/`
+```
+
+#### Response
+
+
+``` json
+{success:true}
+
+```
+#### Requirements
+Caller must be the owner of the contract
+
+
+
+
+
+
+
 
