@@ -12,6 +12,7 @@ const { abi } = require("../artifacts/contracts/GUST.sol/GUST.json")
 
 const GUST = new ethers.Contract(contractAddress, abi, signer)
 
+
 function getTimeInSeconds() {
 	return Math.floor(Date.now() / 1000)
 }
@@ -20,18 +21,21 @@ const express = require("express")
 const app = express()
 app.use(express.json())
 
-app.get("/base/", async (req, res) => {
+app.get("/smart-contract/info", async (req, res) => {
 	try {
-		/**
-         * 
-         * `contractAddress` (string): The address of the deployed Smart Contract.
-- `contractName` (string): The name of the Smart Contract.
-- `contractVersion` (string): The version of the Smart Contract.
-- `author` (string): The author of the Smart Contract.
-- `totalSupply` (uint256): The total supply of the contract's token.
-- `tokenSymbol` (string): The symbol of the contract's token.
-         * 
-         */
+
+		const base ={
+			contractAddress:contractAddress,
+			contractName: await GUST.name(),
+			contractVersion:"0.8.7",
+			author:"Olaoye Salem",
+			totalSupply: await GUST.totalSupply(),
+			tokenOwner : await GUST.owner()
+			
+		}
+		
+		res.send(base)
+
 	} catch (error) {
 		res.status(500).setMaxListeners(error.message)
 	}
@@ -223,85 +227,112 @@ app.post("/mint/", async (req, res) => {
 })
 
 app.post("/permit", async (req, res) => { // issues
+	const value = ethers.utils.parseEther("1")
+const deadline = getTimeInSeconds()+4200;
+const ACCOUNT_2 = process.env.ACCOUNT_2
+const tokenOwner =  new ethers.Wallet(LOCAL_HOST_PRIVATE_KEY,provider)
+let domain,types
+
 	try {
-		const { tokenOwner_privateKey, tokenReciever, value, _deadline } = req.body
-        const tokenOwner = new ethers.Wallet(tokenOwner_privateKey,provider) // check 
-		const nonces = await GUST.nonces(tokenOwner)
-		const deadline = getTimeInSeconds() + _deadline
-        const chainId = await network.config.chainId;
+		//const { tokenOwner_privateKey, tokenReciever, value, _deadline } = req.body
 
-		domain = {
-			name: await GUST.name(),
-			version: "1",
-			chainId: chainId,
-			verifyingContract: GUST.address,
-		}
 
-		types = {
-			Permit: [
-				{
-					name: "owner",
-					type: "address",
-				},
-				{
-					name: "spender",
-					type: "address",
-				},
-				{
-					name: "value",
-					type: "uint256",
-				},
-				{
-					name: "nonce",
-					type: "uint256",
-				},
-				{
-					name: "deadline",
-					type: "uint256",
-				},
-			],
-		}
 
-		const values = {
-			owner: tokenOwner.address,
-			spender: tokenReciever.address,
-			value: value,
-			nonce: nonces,
-			deadline: deadline,
-		}
+		const tokenReciever =  new ethers.Wallet(ACCOUNT_2,provider)
 
-		const signature = await tokenOwner._signTypedData(domain, types, values)
-		// split the signature into its components
-		const sig = await ethers.utils.splitSignature(signature)
+// check accountBalance
 
-		const recovered = ethers.utils.verifyTypedData(
-			domain,
-			types,
-			values,
-			sig
-		)
+let tokenOwnerBalance = (await GUST.balanceOf(tokenOwner.address)).toString()
 
-		// get network gas price
-		gasPrice = await provider.getGasPrice()
 
-		// permit thetokenReciever address to spend tokens on behalf of the tokenOwner
-		let tx = await GUST.connect(tokenOwner).permit(
-			tokenOwner.address,
-			tokenReciever.address,
-			value,
-			deadline,
-			sig.v,
-			sig.r,
-			sig.s,
-			{
-				gasPrice: gasPrice,
-				gasLimit: 80000,
-			}
-		)
+let tokenRecieverBalance = (await GUST.balanceOf(tokenReciever.address)).toString()
 
-		res.json({ success: true })
-	} catch (error) {
+
+const nonces = await GUST.nonces(tokenOwner.address)
+const  chainId = await network.config.chainId
+
+
+
+ domain ={
+    name: await GUST.name(),
+    version:"1",
+    chainId:chainId,
+    verifyingContract:GUST.address
+}
+
+ types = {
+    Permit: [{
+        name: "owner",
+        type: "address"
+      },
+      {
+        name: "spender",
+        type: "address"
+      },
+      {
+        name: "value",
+        type: "uint256"
+      },
+      {
+        name: "nonce",
+        type: "uint256"
+      },
+      {
+        name: "deadline",
+        type: "uint256"
+      },
+       ],
+  };
+
+
+     // set the Permit type values
+     const values = {
+        owner: tokenOwner.address,
+        spender:tokenReciever.address,
+        value: value,
+        nonce: nonces,
+        deadline: deadline,
+      };
+
+
+      // // sign the Permit type data with the deployer's private key
+      const signature = await tokenOwner._signTypedData(domain,types,values)
+      // split the signature into its components
+      const sig = await ethers.utils.splitSignature(signature)
+
+       // verify the Permit type data with the signature
+       const recovered = ethers.utils.verifyTypedData(
+        domain,
+        types,
+        values,
+        sig
+      );
+        
+      
+          // get network gas price
+    gasPrice = await provider.getGasPrice()
+
+        // permit thetokenReciever address to spend tokens on behalf of the tokenOwner
+    let tx = await GUST.connect(tokenOwner).permit(
+        tokenOwner.address,
+       tokenReciever.address,
+        value,
+        deadline,
+        sig.v,
+        sig.r,
+        sig.s, {
+          gasPrice: gasPrice,
+          gasLimit: 80000 
+        }
+      );
+
+    
+
+
+		res.json({success:true})
+	}catch(error){
 		res.status(500).setMaxListeners(error.message)
+		console.log(error)
 	}
 })
 
