@@ -13,7 +13,7 @@ const ACCOUNT_2 = process.env.ACCOUNT_2
 
 const provider = new ethers.providers.JsonRpcProvider(LOCAL_HOST_URL)
 const tokenOwner =  new ethers.Wallet(LOCAL_HOST_PRIVATE_KEY,provider)
-const {abi} = require("../../artifacts/contracts/GUST.sol/GUST.json")
+const {abi} = require("../artifacts/contracts/GUST.sol/GUST.json")
 
 const GUST = new ethers.Contract(CONTRACT_ADDRESS,abi,tokenOwner)
 const value = ethers.utils.parseEther("1")
