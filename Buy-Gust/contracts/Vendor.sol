@@ -78,3 +78,6 @@ contract Vendor is Ownable {
     require(sent, "Failed to send user balance back to the owner");
   }
 }
+
+// add function that updates token per eth
+// add to readme that certain amount of token should be added to vendor contract address
