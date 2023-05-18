@@ -1,8 +1,6 @@
-// This scripts interacts with the GUST token smart contract
+// This scripts interacts with the Vendor token smart contract
 
-//Call the Permit function
-//And now the moment you've been waiting for. 
-//In this section, I'll show  how to allow users to approve token spend without spending gas
+
 
 const {ethers,network} = require("hardhat")
 require("dotenv").config()

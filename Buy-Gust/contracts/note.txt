@@ -1,4 +1,3 @@
-
 I will bee deploying gust on hardhat local LOCAL_HOST_
 meaning i will be writing a deploy scriptsBut note that when testing 
 on a test net or mainnet, we don't need to deploy GUST again, so we won't create two instances

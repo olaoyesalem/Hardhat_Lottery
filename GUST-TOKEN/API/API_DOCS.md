@@ -131,8 +131,10 @@ This retrieves  Basic information about the GUST Contract.
 
 #### Response
 ```
-1000.0
+1000
 ```
+
+The total supply is contant due to the mechanism of the tokenomics of the smart contract.
 
 ### *SYMBOL
 This gives the Symbol of GUST token.
