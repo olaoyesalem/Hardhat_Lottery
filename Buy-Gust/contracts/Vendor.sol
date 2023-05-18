@@ -1,8 +1,9 @@
-// SPDX-License-Identifier: MIT
+//SPDX-License-Identifier: MIT
 pragma solidity ^0.8.4;
 
 import "hardhat/console.sol";
 import "contracts/GUST.sol";
+
 import "@openzeppelin/contracts/access/Ownable.sol";
 
 contract Vendor is Ownable {
@@ -11,7 +12,7 @@ contract Vendor is Ownable {
   GUST yourToken;
 
   // token price for ETH
-  uint256 public tokensPerEth = 10;
+  uint256 public gustPerEth = 1000;
 
   // Event that log buy operation
   event BuyTokens(address buyer, uint256 amountOfETH, uint256 amountOfTokens);
@@ -27,7 +28,7 @@ contract Vendor is Ownable {
   function buyTokens() public payable returns (uint256 tokenAmount) {
     require(msg.value > 0, "Send ETH to buy some tokens");
 
-    uint256 amountToBuy = msg.value * tokensPerEth;
+    uint256 amountToBuy = msg.value * gustPerEth;
 
     // check if the Vendor Contract has enough amount of tokens for the transaction
     uint256 vendorBalance = yourToken.balanceOf(address(this));
@@ -55,7 +56,7 @@ contract Vendor is Ownable {
     require(userBalance >= tokenAmountToSell, "Your balance is lower than the amount of tokens you want to sell");
 
     // Check that the Vendor's balance is enough to do the swap
-    uint256 amountOfETHToTransfer = tokenAmountToSell / tokensPerEth;
+    uint256 amountOfETHToTransfer = tokenAmountToSell / gustPerEth;
     uint256 ownerETHBalance = address(this).balance;
     require(ownerETHBalance >= amountOfETHToTransfer, "Vendor has not enough funds to accept the sell request");
 

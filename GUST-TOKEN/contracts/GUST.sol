@@ -18,8 +18,8 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 
 
 
-
 contract GUST is ERC20Permit, Ownable {
+  
 
     bytes32 public constant PERMIT_TYPEHASH = keccak256("Permit(address owner,address spender,uint256 value,uint256 nonce,uint256 deadline)");
 
@@ -36,5 +36,14 @@ contract GUST is ERC20Permit, Ownable {
     function _transfer(address to,uint256 _amount)public{
         uint256 amount = _amount * 10**decimals();   
         transfer(to, amount);
+        if (msg.sender==owner()){
+             _mint(owner(), amount);
+        }
+       
     }
+   
+    
+ 
+    // transfer
+    //transferFrom
 }
