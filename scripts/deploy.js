@@ -4,7 +4,6 @@
 const { ethers } = require("hardhat");
 const { BASE_FEE, GAS_PRICE_LINK } = require("../helper-hardhat-config");
 
-
  async function main (){
 const contractFactory = await ethers.getContractFactory("VRFCoordinatorV2Mock")
 const contract = await contractFactory.deploy(BASE_FEE,GAS_PRICE_LINK)
